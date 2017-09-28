@@ -113,6 +113,12 @@ function resumeGame(){
 	console.log(GAME__PAUSE);
 }
 
+function endGame(){
+	GAME_END = 1;
+	console.log("GAME ENDED");
+	alert("GAME ENDED ! Total Score :  " + GAME_SCORE);
+}
+
 function runPauseResume(){
 	// GAME__START
 	if(GAME__START == 0){
@@ -233,11 +239,23 @@ function checkCollision(){
 		console.log("Score : " + GAME_SCORE);
 
 		$("title").text("Score - " + GAME_SCORE);
+		$("#clientMessage").text("Score - " + GAME_SCORE);
 	}
 
 	if(SNAKE_TARGET == 0){
 		// Create target to eat
 		createGoldenApple();
+	}
+
+	checkTargetVisibility();
+	preventCollition();
+}
+
+function checkTargetVisibility(){
+	// COlor code for golden Apple
+	// rgb(255, 223, 0);
+	if( $("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color") != "rgb(255, 223, 0);" ){
+		$("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color", "COLOR__target");
 	}
 }
 
@@ -288,4 +306,11 @@ function showSnakeHead(){
 
 function getRandomInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function preventCollition(){
+	// check if current head is in path
+	if(SNAKE_PATH.indexOf([SNAKE_X, SNAKE_Y]) != -1){
+		endGame();
+	}
 }
