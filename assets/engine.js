@@ -233,12 +233,24 @@ function checkCollision(){
 		console.log("Score : " + GAME_SCORE);
 
 		$("title").text("Score - " + GAME_SCORE);
+		$("#clientMessage").text("Score - " + GAME_SCORE);
 	}
 
 	if(SNAKE_TARGET == 0){
 		// Create target to eat
 		createGoldenApple();
 	}
+
+	checkTargetVisibility();
+}
+
+function checkTargetVisibility(){
+	// COlor code for golden Apple
+	// rgb(255, 223, 0);
+	if( $("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color") != "rgb(255, 223, 0);" ){
+		$("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color", "COLOR__target");
+	}
+	
 }
 
 // most complicated function
