@@ -113,6 +113,12 @@ function resumeGame(){
 	console.log(GAME__PAUSE);
 }
 
+function endGame(){
+	GAME_END = 1;
+	console.log("GAME ENDED");
+	alert("GAME ENDED ! Total Score :  " + GAME_SCORE);
+}
+
 function runPauseResume(){
 	// GAME__START
 	if(GAME__START == 0){
@@ -242,6 +248,7 @@ function checkCollision(){
 	}
 
 	checkTargetVisibility();
+	preventCollition();
 }
 
 function checkTargetVisibility(){
@@ -250,7 +257,6 @@ function checkTargetVisibility(){
 	if( $("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color") != "rgb(255, 223, 0);" ){
 		$("#__"+SNAKE_TARGET_X+"-"+SNAKE_TARGET_Y).css("background-color", "COLOR__target");
 	}
-	
 }
 
 // most complicated function
@@ -300,4 +306,11 @@ function showSnakeHead(){
 
 function getRandomInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function preventCollition(){
+	// check if current head is in path
+	if(SNAKE_PATH.indexOf([SNAKE_X, SNAKE_Y]) != -1){
+		endGame();
+	}
 }
